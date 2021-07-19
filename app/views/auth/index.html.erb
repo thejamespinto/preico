@@ -1,0 +1,26 @@
+<table>
+    <tr>
+        <td>
+            <h2>cadastro</h2>
+            <p style="color: red">
+            	<%= @error if params[:commit] == 'cadastrar' %>
+            </p>
+            <%= form_tag auth_create_path do %>
+                <p>email: <%= email_field_tag :email, params[:email] %></p>
+                <p>password: <%= text_field_tag :password, params[:password] %></p>
+                <p><%= submit_tag 'cadastrar' %></p>
+            <% end %>
+        </td>
+        <td>
+            <h2>login</h2>
+            <p style="color: red">
+            	<%= @error if params[:commit] == 'login' %>
+            </p>
+            <%= form_tag auth_login_path do %>
+                <p>email: <%= email_field_tag :email, params[:email] %></p>
+                <p>password: <%= text_field_tag :password, params[:password] %></p>
+                <p><%= submit_tag 'login' %></p>
+            <% end %>
+        </td>
+    </tr>
+</table>

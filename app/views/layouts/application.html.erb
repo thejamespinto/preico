@@ -1,15 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Preico</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+	<head>
+		<title>Preico</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<%= csrf_meta_tags %>
+		<%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-  </head>
+		<%= stylesheet_link_tag 'application', media: 'all' %>
+	</head>
 
-  <body>
-    <%= yield %>
-  </body>
+	<body>
+		<div>
+			<% if current_user %>
+				Ola, <%= current_user.email %>.
+				Sessoes:
+				<% if current_user.admin? %>
+					<%= link_to 'area administrativa', admin_path %> |
+				<% end %>
+				<%= link_to 'area principal', home_path %>
+				<%= button_to "sair", auth_logout_path %>
+			<% else %>
+				Ola, visitante.
+			<% end %>
+		</div>
+		<hr/>
+
+		<%= yield %>
+	</body>
 </html>
