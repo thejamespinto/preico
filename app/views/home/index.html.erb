@@ -1,2 +1,45 @@
 <h1>Area Principal</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+
+<table border="1">
+    <tr>
+    	<% @wallets.each do |wallet| %>
+	        <td>
+	            <h2>Saldo <%= wallet.key %>: $<%= wallet.amount %></h2>
+	        </td>
+    	<% end %>
+    </tr>
+    <tr>
+    	<% @wallets.each do |wallet| %>
+	        <td>
+	            <%= button_to "Simular credito $10", home_sim_funds_path(key: wallet.key, amount: 10) %>
+	            <%= button_to "Simular credito $50", home_sim_funds_path(key: wallet.key, amount: 50) %>
+	            <%= button_to "Simular credito $100", home_sim_funds_path(key: wallet.key, amount: 100) %>
+	        </td>
+    	<% end %>
+    </tr>
+    <tr>
+    	<% @wallets.each do |wallet| %>
+	        <td>
+	            <% wallet.entries.each do |entry| %>
+	            	<p style="font-weight: bold; font-size: x-small;">+<%= entry.amount %> @ <%= entry.created_at %></p>
+	            <% end %>
+	        </td>
+    	<% end %>
+    </tr>
+</table>
+
+
+<%= form_tag home_sim_address_path do %>
+    <p>
+    	BTC Address: <%= text_field_tag :address, @address, style: 'width: 300px' %>
+    	<%= submit_tag 'Simular' %>
+    </p>
+<% end %>
+
+<% @transactions.each do |tx| %>
+	<p style="font-weight: bold; font-size: x-small;">
+		<%= link_to tx['out'], home_path(address: tx['out']), style: "font-size: xx-small;" if tx['out'] %>
+		<%= tx.slice('hash', 'weight', 'fee', 'result', 'balance', 'error', 'message') %>
+	</p>
+	<hr/>
+<% end %>

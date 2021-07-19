@@ -6,6 +6,7 @@ module AuthService
 
     return user.errors.full_messages.first unless user.persisted?
 
+    user.session_token!
     user
   end
 

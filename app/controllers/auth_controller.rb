@@ -9,7 +9,7 @@ class AuthController < ApplicationController
     user = AuthService.create(params[:email], params[:password])
     if user.is_a? User
       set_current_user_to(user)
-      redirect_to :root, notice: 'Cadastrado com sucesso'
+      redirect_to home_path, notice: 'Cadastrado com sucesso'
     else
       @error = user
       render :index
@@ -21,7 +21,7 @@ class AuthController < ApplicationController
     user = AuthService.login(params[:email], params[:password])
     if user.is_a? User
       set_current_user_to user
-      redirect_to :root, notice: 'Logado com sucesso'
+      redirect_to home_path, notice: 'Logado com sucesso'
     else
       @error = user
       render :index
@@ -32,6 +32,6 @@ class AuthController < ApplicationController
   def logout
     AuthService.logout(current_user)
     unset_current_user
-    redirect_to :root, notice: 'Logout com sucesso'
+    redirect_to auth_path, notice: 'Logout com sucesso'
   end
 end

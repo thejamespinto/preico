@@ -24,6 +24,15 @@
 			<% end %>
 		</div>
 		<hr/>
+		<% flash.each do |k, v| %>
+	        <p style="color: white; background: black;">
+	        	<span style="font-weight: bold">
+	        		<%= k %>:
+	        	</span>
+	        	<%= v %>
+			</p>
+			<hr/>
+		<% end %>
 
 		<%= yield %>
 	</body>

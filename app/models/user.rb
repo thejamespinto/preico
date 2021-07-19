@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   validates_format_of :password, with: PASS_REGEXP
 
+  has_many :wallets, class_name: 'UserWallet'
+
   def password?(v)
     BCrypt::Password.new(password_hash) == BCrypt::Password.create(v)
   end
